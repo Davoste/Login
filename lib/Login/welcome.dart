@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/Login/forgot.dart';
+import 'package:project/auth.dart';
 import 'package:project/onboard/color.dart';
 import 'package:project/signup/welcome_reg.dart';
 import 'package:http/http.dart' as http;
@@ -191,21 +192,34 @@ class _WelcomeState extends State<Welcome> {
             ),
             const SizedBox(height: 10),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Image.asset(
-                  "../assets/images/icons8-apple-logo1@1x.png",
-                  width: 50,
-                  height: 50,
+                GestureDetector(
+                  onTap: () => AuthService().signInWithFacebook(),
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    child: Image.asset("assets/images/Group52@1x.png"),
+                  ),
                 ),
-                const SizedBox(width: 10),
-                Image.asset(
-                  "../assets/images/Group52@1x.png",
-                  width: 50,
-                  height: 50,
+                // GestureDetector(
+                //   onTap: () => AuthService().signInWithTwitter(),
+                //   child: Container(
+                //     height: 35,
+                //     width: 35,
+                //     child: Image.asset("assets/images/twitter.png"),
+                //   ),
+                // ),
+                GestureDetector(
+                  onTap: () => AuthService().signInWithGoogle(),
+                  child: Container(
+                    height: 50,
+                    width: 50,
+                    child: Image.asset("../assets/images/google.jpeg"),
+                  ),
                 ),
               ],
-            ),
+            )
           ],
         ),
       ),

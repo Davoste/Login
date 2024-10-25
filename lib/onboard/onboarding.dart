@@ -16,7 +16,7 @@ class Onboarding extends StatelessWidget {
               Container(
                 color: HexColor("#5EA25F"),
                 child: Image.asset(
-                  "../lib/Group44.png", // Corrected path
+                  "assets/images/Group44.png", // Corrected path
                   fit: BoxFit.fill,
                 ),
               )
@@ -34,10 +34,13 @@ class Onboarding extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const Text(
-                  "Sell your farm fresh products directly to consumers, cutting out the middleman and reducing emissions of the global supply chain.",
+                const Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8),
+                  child: const Text(
+                    "Sell your farm fresh products directly to consumers, cutting out the middleman and reducing emissions of the global supply chain.",
+                  ),
                 ),
-                SizedBox(height: 15),
+                SizedBox(height: 25),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -47,7 +50,8 @@ class Onboarding extends StatelessWidget {
                     );
                   },
                   child: Image.asset(
-                    "../assets/images/Group45.png", // Corrected path
+                    "assets/images/Group45.png",
+                    height: 50,
                   ),
                 ),
                 GestureDetector(

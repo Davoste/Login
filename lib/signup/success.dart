@@ -16,7 +16,7 @@ class Success extends StatelessWidget {
             Container(
               height: 100,
               width: 100,
-              child: Image.asset("../assets/images/Vector@3x-5.png"),
+              child: Image.asset("assets/images/Vector@3x-5.png"),
             ),
             const SizedBox(height: 20),
             const Text(

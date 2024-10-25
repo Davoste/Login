@@ -39,6 +39,12 @@ dependencies:
   file_picker: ^8.1.2
   image_picker: ^0.8.7+3
   http: ^1.2.2
+  google_sign_in: ^6.2.1
+  firebase_auth: ^5.3.1
+  firebase_core: ^3.6.0
+  cloud_firestore: ^5.4.4
+  flutter_facebook_auth: ^7.1.1
+ 
   
 
 dev_dependencies:
@@ -57,6 +63,9 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/images/
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -64,11 +73,7 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-assets:
-   - assets/images/Group44.png
-   - assets/images/Group45.png
-   - assets/images/
-   - lib/
+ 
 
   #   - images/a_dot_ham.jpeg
 

@@ -14,7 +14,7 @@ class Onboarding1 extends StatelessWidget {
             Container(
               color: HexColor("#D5715B"),
               child: Image.asset(
-                "../assets/images/Group.png",
+                "assets/images/Group.png",
                 fit: BoxFit.fill,
               ),
             )
@@ -42,7 +42,7 @@ class Onboarding1 extends StatelessWidget {
                 height: 15,
               ),
               Image.asset(
-                "../assets/images/Group45.png",
+                "assets/images/Group45.png",
               ),
               Padding(
                 padding: const EdgeInsets.all(15.0),

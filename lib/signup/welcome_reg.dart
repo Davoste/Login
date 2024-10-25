@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/Login/welcome.dart';
+import 'package:project/auth.dart';
 import 'package:project/signup/farm_info.dart';
 
 class WelcomeReg extends StatefulWidget {
@@ -255,20 +256,29 @@ class _WelcomeRegState extends State<WelcomeReg> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Container(
-          height: 50,
-          width: 50,
-          child: Image.asset("../assets/images/Group52@1x.png"),
+        GestureDetector(
+          onTap: () => AuthService().signInWithFacebook(),
+          child: Container(
+            height: 50,
+            width: 50,
+            child: Image.asset("assets/images/Group52@1x.png"),
+          ),
         ),
-        Container(
-          height: 50,
-          width: 50,
-          child: Image.asset("../assets/images/icons8-apple-logo1@1x.png"),
-        ),
-        Container(
-          height: 50,
-          width: 50,
-          child: Image.asset("../assets/images/icons8-apple-logo1@1x.png"),
+        // GestureDetector(
+        //   onTap: () => AuthService().signInWithTwitter(),
+        //   child: Container(
+        //     height: 35,
+        //     width: 35,
+        //     child: Image.asset("assets/images/twitter.png"),
+        //   ),
+        // ),
+        GestureDetector(
+          onTap: () => AuthService().signInWithGoogle(),
+          child: Container(
+            height: 50,
+            width: 50,
+            child: Image.asset("../assets/images/google.jpeg"),
+          ),
         ),
       ],
     );

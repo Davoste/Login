@@ -22,10 +22,13 @@ class HomePage extends StatelessWidget {
                 children: [Onboarding(), Onboarding1(), Onboarding2()],
               ),
             ),
+
+            // bottom: 100,
             Positioned(
               bottom: 100,
+              right: 100,
               child: Align(
-                alignment: Alignment.center,
+                alignment: Alignment.bottomCenter,
                 child: SmoothPageIndicator(
                   controller: _controller,
                   count: 3,

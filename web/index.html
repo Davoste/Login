@@ -24,6 +24,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="project">
+  <meta name="google-signin-client_id" content="573311220969-bt7nu7mm0ammm8de71n2o7jvk6e46hk3.apps.googleusercontent.com">
+
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
@@ -31,8 +33,29 @@
 
   <title>project</title>
   <link rel="manifest" href="manifest.json">
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
+
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyCB7LhoLiiSC7z68m4UDLMjsawFSeBIfRo",
+      authDomain: "conn-d2504.firebaseapp.com",
+      projectId: "conn-d2504",
+      storageBucket: "conn-d2504.appspot.com",
+      messagingSenderId: "573311220969",
+      appId: "1:573311220969:web:ad60e398d28a3f1eac0478",
+      measurementId: "G-LFSFDVLB7R"
+    };
+  
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
 </body>
 </html>
