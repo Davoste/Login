@@ -103,9 +103,13 @@ class _BusinessHoursState extends State<BusinessHours> {
 
       if (response.statusCode == 200) {
         // Check if registration was successful
-        if (jsonData["success"] == "true") {
+        if (jsonData["message"] == "Registered.") {
           // Registration succeeded, show success message and navigate
-          showAlertDialog(context, jsonData["message"], true);
+          //showAlertDialog(context, jsonData["message"], true);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Success()),
+          );
         } else {
           // Registration failed, show the error message
           showAlertDialog(context, jsonData["message"], false);
@@ -370,7 +374,7 @@ void showAlertDialog(BuildContext context, String message, bool isSuccess) {
             onPressed: () {
               Navigator.of(context).pop();
               if (isSuccess) {
-                // Navigate to success page if the registration was successful
+                // Navigate to the success page if registration succeeded
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const Success()),
