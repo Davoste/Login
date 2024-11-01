@@ -26,7 +26,8 @@ class HomePage extends StatelessWidget {
             // bottom: 100,
             Positioned(
               bottom: 100,
-              right: 100,
+              right: 0,
+              left: 0,
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: SmoothPageIndicator(

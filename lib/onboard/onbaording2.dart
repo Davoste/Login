@@ -7,21 +7,26 @@ class Onboarding2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: HexColor("#F8C569"),
-        body: Column(
-          children: [
-            Row(
-              children: [
-                Container(
-                  color: HexColor("#F8C569"),
-                  child: Image.asset(
-                    "assets/images/Group46.png",
-                    fit: BoxFit.fill,
-                  ),
-                )
-              ],
+      backgroundColor: HexColor("#F8C569"),
+      body: Stack(
+        children: [
+          // Background Image at the Top
+          Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              color: HexColor("#F8C569"),
+              child: Image.asset(
+                "assets/images/Group46.png",
+                fit: BoxFit.fill,
+              ),
             ),
-            Container(
+          ),
+          // Positioned container at the bottom
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(
@@ -29,10 +34,9 @@ class Onboarding2 extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 12.0,
-                ),
+                padding: const EdgeInsets.only(top: 12.0),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min, // Wrap content
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
@@ -42,30 +46,34 @@ class Onboarding2 extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const Text(
-                      "We love the earth and know you do too! Join us in reducing our local carbon footprint one order at a time.  ",
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text(
+                        "We love the earth and know you do too! Join us in reducing our local carbon footprint one order at a time.",
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    //Spacer(),
-                    SizedBox(
-                      height: 15,
-                    ),
+                    const SizedBox(height: 30),
                     Image.asset(
                       "assets/images/Group45.png",
+                      height: 50,
                     ),
                     Padding(
                       padding: const EdgeInsets.all(15.0),
-                      child: Text(
+                      child: const Text(
                         "Log In",
                         style: TextStyle(
                           decoration: TextDecoration.underline,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }

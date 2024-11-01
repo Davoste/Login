@@ -31,20 +31,41 @@ class _ForgotState extends State<Forgot> {
     );
 
     if (response.statusCode == 200) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const Verify()),
-      );
-      // Successful login
       var responseData = json.decode(response.body);
-      print(responseData);
-      // Navigate to the home screen or display a success message
+      if (responseData["success"] == "true" ||
+          responseData["success"] == true) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Verify()),
+        );
+      } else {
+        showAlertDialog(
+            "Failed", responseData['message'] ?? "Failed to send code.");
+      }
     } else {
-      // Failed login
       var errorData = json.decode(response.body);
-      print('Failed: ${errorData['message']}');
-      // Display an error message to the user
+      showAlertDialog("Failed", errorData['message'] ?? "Failed to send code.");
     }
+  }
+
+  void showAlertDialog(String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -89,8 +110,6 @@ class _ForgotState extends State<Forgot> {
                       context,
                       MaterialPageRoute(builder: (context) => const Welcome()),
                     );
-
-                    // Navigate to login
                   },
                   child: Text(
                     "Login",
@@ -128,13 +147,13 @@ class _ForgotState extends State<Forgot> {
                   width: 200,
                   decoration: BoxDecoration(
                     color: Colors.amber,
-                    borderRadius: BorderRadius.circular(25), // Rounded corners
+                    borderRadius: BorderRadius.circular(25),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.2),
                         spreadRadius: 1,
                         blurRadius: 5,
-                        offset: const Offset(0, 3), // Shadow position
+                        offset: const Offset(0, 3),
                       ),
                     ],
                     gradient: const LinearGradient(
@@ -143,8 +162,7 @@ class _ForgotState extends State<Forgot> {
                       end: Alignment.bottomRight,
                     ),
                   ),
-                  alignment:
-                      Alignment.center, // Center text within the container
+                  alignment: Alignment.center,
                   child: const Text(
                     "Send Code",
                     style: TextStyle(

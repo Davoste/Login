@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project/Login/forgot.dart';
 import 'package:project/auth.dart';
+import 'package:project/home.dart';
 import 'package:project/onboard/color.dart';
 import 'package:project/signup/welcome_reg.dart';
 import 'package:http/http.dart' as http;
@@ -18,8 +19,14 @@ class _WelcomeState extends State<Welcome> {
   final TextEditingController passwordController = TextEditingController();
 
   Future<void> login() async {
-    String email = emailController.text;
-    String password = passwordController.text;
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      showErrorDialog("Both email and password fields are required.", "Alert");
+      return;
+    }
+
     String deviceToken = "your_device_token";
     String socialId = "your_social_id";
 
@@ -41,16 +48,48 @@ class _WelcomeState extends State<Welcome> {
     );
 
     if (response.statusCode == 200) {
-      // Successful login
       var responseData = json.decode(response.body);
-      print(responseData);
-      // Navigate to the home screen or display a success message
+
+      if (responseData["success"] == "true" ||
+          responseData["success"] == true) {
+        // Login successful, navigate to Home and pass the email
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Home(
+              email: email, // Pass the actual email string
+            ),
+          ),
+        );
+      } else {
+        // Login failed, show error message from API
+        showErrorDialog(responseData["message"], "Failed");
+      }
     } else {
-      // Failed login
+      // HTTP error, show error message
       var errorData = json.decode(response.body);
-      print('Login failed: ${errorData['message']}');
-      // Display an error message to the user
+      showErrorDialog('Login failed: ${errorData['message']}', "Failed");
     }
+  }
+
+  void showErrorDialog(String message, String heading) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(heading),
+          content: Text(message),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -118,14 +157,20 @@ class _WelcomeState extends State<Welcome> {
               ),
             ),
             SizedBox(height: 10),
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.lock),
-                hintText: "Password",
-                border: OutlineInputBorder(),
-                suffix: GestureDetector(
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.lock),
+                      hintText: "Password",
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+                GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
@@ -139,55 +184,56 @@ class _WelcomeState extends State<Welcome> {
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
             const SizedBox(height: 20),
-            Align(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 50,
-                    width: 200,
-                    decoration: BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius:
-                          BorderRadius.circular(25), // Rounded corners
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          spreadRadius: 1,
-                          blurRadius: 5,
-                          offset: const Offset(0, 3), // Shadow position
+            GestureDetector(
+              onTap: () => login(),
+              child: Align(
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 50,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        color: Colors.amber,
+                        borderRadius: BorderRadius.circular(25),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                        gradient: const LinearGradient(
+                          colors: [Colors.amber, Colors.orangeAccent],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
                         ),
-                      ],
-                      gradient: const LinearGradient(
-                        colors: [Colors.amber, Colors.orangeAccent],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+                      ),
+                      alignment: Alignment.center,
+                      child: const Text(
+                        "Log In",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
-                    alignment:
-                        Alignment.center, // Center text within the container
-                    child: const Text(
-                      "Log In",
+                    const SizedBox(height: 5),
+                    const Text(
+                      "or login with",
                       style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 10,
+                        color: Colors.grey,
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 5),
-                  const Text(
-                    "or login with",
-                    style: TextStyle(
-                      fontSize: 10,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 10),
@@ -202,14 +248,6 @@ class _WelcomeState extends State<Welcome> {
                     child: Image.asset("assets/images/Group52@1x.png"),
                   ),
                 ),
-                // GestureDetector(
-                //   onTap: () => AuthService().signInWithTwitter(),
-                //   child: Container(
-                //     height: 35,
-                //     width: 35,
-                //     child: Image.asset("assets/images/twitter.png"),
-                //   ),
-                // ),
                 GestureDetector(
                   onTap: () => AuthService().signInWithGoogle(),
                   child: Container(
