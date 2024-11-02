@@ -249,11 +249,11 @@ class _WelcomeState extends State<Welcome> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => AuthService().signInWithGoogle(),
+                  onTap: () => AuthService().signInWithGoogle(context),
                   child: Container(
                     height: 50,
                     width: 50,
-                    child: Image.asset("../assets/images/google.jpeg"),
+                    child: Image.asset("assets/images/google.jpeg"),
                   ),
                 ),
               ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/Login/welcome.dart';
+import 'package:project/log.dart';
 import 'package:project/onboard/color.dart';
 import 'package:project/signup/welcome_reg.dart';
 
@@ -74,7 +75,7 @@ class Onboarding extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Welcome()),
+                              builder: (context) => const logged()),
                         );
                       },
                       child: Padding(

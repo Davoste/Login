@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -9,6 +10,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  void signOut() {
+    FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +27,7 @@ class _HomeState extends State<Home> {
         ),
         centerTitle: true,
         elevation: 0,
+        actions: [IconButton(onPressed: signOut, icon: Icon(Icons.logout))],
       ),
       body: Center(
         child: Text("Welcome Home ${widget.email}"), // Use widget.email here

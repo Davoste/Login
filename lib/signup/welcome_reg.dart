@@ -273,7 +273,7 @@ class _WelcomeRegState extends State<WelcomeReg> {
         //   ),
         // ),
         GestureDetector(
-          onTap: () => AuthService().signInWithGoogle(),
+          onTap: () => AuthService().signInWithGoogle(context),
           child: Container(
             height: 50,
             width: 50,

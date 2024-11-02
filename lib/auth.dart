@@ -1,29 +1,49 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter/material.dart';
 //import 'package:twitter_login/twitter_login.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   User? _getCurrentUser() {
     return _firebaseAuth.currentUser;
   }
 
-  signInWithGoogle() async {
-    //begin interactive sign in
-    final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
-    //iser cancels
-    if (gUser == null) return;
+  Future<void> signInWithGoogle(BuildContext context) async {
+    try {
+      // Begin interactive sign-in
+      final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
 
-    //obtain auth details
-    final GoogleSignInAuthentication gAuth = await gUser.authentication;
-    //create new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: gAuth.accessToken,
-      idToken: gAuth.idToken,
-    );
-    //sign in
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+      // User cancels
+      if (gUser == null) return;
+
+      // Obtain auth details
+      final GoogleSignInAuthentication gAuth = await gUser.authentication;
+
+      // Create new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: gAuth.accessToken,
+        idToken: gAuth.idToken,
+      );
+
+      // Sign in with credential
+      UserCredential userCredential =
+          await _firebaseAuth.signInWithCredential(credential);
+
+      // Navigate to the home page if sign-in is successful
+      if (userCredential.user != null) {
+        Navigator.of(context).pushReplacementNamed(
+            '/home'); // Replace '/home' with your route name
+      }
+    } catch (e) {
+      // Handle sign-in error
+      print('Error during sign-in: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Sign-in failed. Please try again.')),
+      );
+    }
   }
   //facebook
 
